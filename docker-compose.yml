@@ -6,7 +6,7 @@ services:
       - ./nginx:/etc/nginx/conf.d:ro
       - ./default:/var/www/default:ro
     ports:
-      - "8080:8080"
+      - "80:80"
     links:
       - php
       - phpmyadmin
@@ -24,7 +24,7 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
     ports:
-      - "9090:80"
+      - "8080:80"
   mysql:
     image: mysql
     environment:
