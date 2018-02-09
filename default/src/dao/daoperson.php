@@ -21,13 +21,14 @@ class DaoPerson {
         $tab = [];
         /*On crée une connexion à notre base de données en utilisant 
         l'objet PDO qui attend en premier argument le nom de notre SGBD,
-        l'hôte où est notre bdd et le nom de la bdd, en deuxième argument
-        le nom d'utilisateur de notre bdd et en troisième argument son
+        l'hôte où est notre bdd (ici c'est mysql du fait qu'on soit sur un docker)
+        et le nom de la bdd, en deuxième argument le nom d'utilisateur de notre bdd et en troisième argument son
         mot de passe.
         On récupère une connexion à la base sur laquelle on pourra
         faire des requêtes et autre.
         */
-        $pdo = new \PDO('mysql:host=localhost;dbname=db','root','root');
+        try {
+        $pdo = new \PDO('mysql:host=mysql;dbname=db;','root','root');
         /*On utilise la méthode prepare() de notre connexion pour préparer
         une requête SQL (elle n'est pas envoyée tant qu'on ne lui dit pas)
         La méthode prepare attend en argument une string SQL
@@ -52,12 +53,15 @@ class DaoPerson {
             SQL.
             */
             $pers = new Person($row['name'], 
-                        $row['birth_date'], 
+                        new \DateTime($row['birth_date']), 
                         $row['gender'],
                         $row['id']);
             //On ajoute la person créée à notre tableau
             $tab[] = $pers;
         }
+    }catch(\Exception $e) {
+        echo $e;
+    }
         //On return le tableau
         return $tab;
     }

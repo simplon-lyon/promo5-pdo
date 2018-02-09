@@ -6,7 +6,7 @@ use simplon\entities\Person;
 use simplon\dao\DaoPerson;
 
 // Routes
-phpinfo();
+
 $app->get('/', function (Request $request, Response $response, array $args) {
     $dao = new DaoPerson();
     var_dump($dao->getAll());

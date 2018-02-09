@@ -11,7 +11,9 @@ services:
       - php
       - phpmyadmin
   php:
-    image: php:7.2-fpm
+    build:
+      context: ./
+      dockerfile: Dockerfile
     volumes:
       - ./default:/var/www/default
     links:
