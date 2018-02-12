@@ -9,8 +9,13 @@ use simplon\dao\DaoPerson;
 
 $app->get('/', function (Request $request, Response $response, array $args) {
     $dao = new DaoPerson();
-    var_dump($dao->getAll());
-    
+    // echo '<pre>';
+    // var_dump($dao->getById(2));
+
+    // echo '</pre>';
+    $pers = new Person('Jean Claude',new DateTime('1965-07-23'),0);
+    $dao->add($pers);
+    var_dump($pers);
     // Render index view
     return $this->view->render($response, 'index.twig', [
         'variable' => 'Yes It works'
