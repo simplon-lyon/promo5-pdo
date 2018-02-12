@@ -13,7 +13,7 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     // var_dump($dao->getById(2));
 
     // echo '</pre>';
-    $pers = new Person('Jean Claude',new DateTime('1965-07-23'),0);
+    $pers = new Person('Domi',new DateTime('1986-07-14'),3);
     $dao->add($pers);
     var_dump($pers);
     // Render index view
