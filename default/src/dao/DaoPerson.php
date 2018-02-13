@@ -157,5 +157,55 @@ class DaoPerson {
             echo $e;
         }
     }
+    /**
+     * Une méthode pour mettre à jour les informations d'une Person 
+     * déjà existante dans la base de donnée.
+     * L'argument $pers doit être une instance de Person complète, avec
+     * un id existant en base.
+     */
+    public function update(Person $pers) {
+        
+        try {
+            //toujours pareil, on prépare la requête
+            $query = $this->pdo->prepare('UPDATE person SET name = :name, birth_date = :birth_date, gender = :gender WHERE id = :id');
+            //on bind les value des placeholders
+            $query->bindValue(':name',$pers->getName(),\PDO::PARAM_STR);
+            
+            $query->bindValue(':birth_date',$pers->getBirthdate()->format('Y-m-d'),\PDO::PARAM_STR);
+            $query->bindValue(':gender',$pers->getGender(),
+            \PDO::PARAM_INT);
+            $query->bindValue(':id',$pers->getId(),
+            \PDO::PARAM_INT);
+
+            //on exécute la requête
+            $query->execute();
+            
+            
+        }catch(\PDOException $e) {
+            echo $e;
+        }
+    }
+
+    /**
+     * La méthode delete supprimera une Person de la base de données en
+     * se basant sur son id
+     */
+    public function delete(int $id) {
+        
+        try {
+            //On prépare...
+            $query = $this->pdo->prepare('DELETE FROM person WHERE id = :id');
+            //on bind...
+            $query->bindValue(':id',$id,\PDO::PARAM_INT);
+
+            //on exécute
+            $query->execute();
+            
+            
+        }catch(\PDOException $e) {
+            echo $e;
+        }
+    }
+
 
 }

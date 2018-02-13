@@ -13,9 +13,10 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     // var_dump($dao->getById(2));
 
     // echo '</pre>';
-    $pers = new Person('Domi',new DateTime('1986-07-14'),3);
-    $dao->add($pers);
-    var_dump($pers);
+    $pers = new Person('Dominique',new DateTime('1986-07-14'),3, 3);
+    $dao->delete(3);
+
+    // var_dump($pers);
     // Render index view
     return $this->view->render($response, 'index.twig', [
         'variable' => 'Yes It works'
