@@ -2,6 +2,7 @@
 
 namespace simplon\dao;
 use simplon\entities\Person;
+use simplon\dao\Connect;
 /**
  * Un Dao, pour Data Access Object, est une classe dont le but est de faire
  * le lien entre les tables SQL et les objets PHP (ou autre langage).
@@ -11,12 +12,7 @@ use simplon\entities\Person;
  * juste le DAO à modifier et le reste de notre appli restera inchangé)
  */
 class DaoPerson {
-    private $pdo;
-
-    public function __construct() {
-        $this->pdo = new \PDO('mysql:host=mysql;dbname=db;','root','root');
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-    }
+    
     
     /**
      * La méthode getAll renvoie toutes les persons stockées en bdd
@@ -40,7 +36,7 @@ class DaoPerson {
             une requête SQL (elle n'est pas envoyée tant qu'on ne lui dit pas)
             La méthode prepare attend en argument une string SQL
             */
-            $query = $this->pdo->prepare('SELECT * FROM person');
+            $query = Connect::getInstance()->prepare('SELECT * FROM person');
             //On dit à notre requête de s'exécuter, à ce moment là, le résultat
             //de la requête est disponible dans la variable $query
             $query->execute();
@@ -90,7 +86,7 @@ class DaoPerson {
              * A la place, on met un placeholder dans la requête auquel on
              * donne un label précédé de :, par exemple :id
              */
-            $query = $this->pdo->prepare('SELECT * FROM person WHERE id=:id');
+            $query = Connect::getInstance()->prepare('SELECT * FROM person WHERE id=:id');
             /**
              * Chaque placeholder d'une requête doit être bindée, soit par
              * un bindValue, soit directement dans le execute via un 
@@ -130,7 +126,7 @@ class DaoPerson {
         
         try {
             //On prépare notre requête, avec les divers placeholders
-            $query = $this->pdo->prepare('INSERT INTO person (name,birth_date,gender) VALUES (:name, :birth_date, :gender)');
+            $query = Connect::getInstance()->prepare('INSERT INTO person (name,birth_date,gender) VALUES (:name, :birth_date, :gender)');
             /**
              * On bind les différentes values qu'on récupère de l'instance
              * de Person qui nous est passée en argument, via ses
@@ -151,7 +147,7 @@ class DaoPerson {
              * On fait en sorte de récupérer le dernier id généré par SQL 
              * afin de l'assigner à l'id de notre instance de Person
              */
-            $pers->setId($this->pdo->lastInsertId());
+            $pers->setId(Connect::getInstance()->lastInsertId());
             
         }catch(\PDOException $e) {
             echo $e;
@@ -167,7 +163,7 @@ class DaoPerson {
         
         try {
             //toujours pareil, on prépare la requête
-            $query = $this->pdo->prepare('UPDATE person SET name = :name, birth_date = :birth_date, gender = :gender WHERE id = :id');
+            $query = Connect::getInstance()->prepare('UPDATE person SET name = :name, birth_date = :birth_date, gender = :gender WHERE id = :id');
             //on bind les value des placeholders
             $query->bindValue(':name',$pers->getName(),\PDO::PARAM_STR);
             
@@ -194,7 +190,7 @@ class DaoPerson {
         
         try {
             //On prépare...
-            $query = $this->pdo->prepare('DELETE FROM person WHERE id = :id');
+            $query = Connect::getInstance()->prepare('DELETE FROM person WHERE id = :id');
             //on bind...
             $query->bindValue(':id',$id,\PDO::PARAM_INT);
 

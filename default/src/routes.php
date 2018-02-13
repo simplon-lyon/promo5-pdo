@@ -10,11 +10,11 @@ use simplon\dao\DaoPerson;
 $app->get('/', function (Request $request, Response $response, array $args) {
     $dao = new DaoPerson();
     // echo '<pre>';
-    // var_dump($dao->getById(2));
+    var_dump($dao->getAll());
 
     // echo '</pre>';
-    $pers = new Person('Dominique',new DateTime('1986-07-14'),3, 3);
-    $dao->delete(3);
+    // $pers = new Person('Dominique',new DateTime('1986-07-14'),3, 3);
+    // $dao->delete(3);
 
     // var_dump($pers);
     // Render index view
