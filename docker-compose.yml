@@ -18,6 +18,11 @@ services:
       - ./default:/var/www/default
     links:
       - mysql
+    environment:
+      SQL_PASSWORD: root
+      SQL_USER: root
+      SQL_DATABASE: db
+      SQL_HOST: mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
