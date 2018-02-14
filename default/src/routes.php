@@ -19,13 +19,9 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     ]);
 })->setName('index');
 
-$app->get('/addperson', function (Request $request, Response $response, array $args) {
-    return $this->view->render($response, 'addperson.twig');
-})->setName('addperson');
 
 
-
-$app->post('/addperson', function (Request $request, Response $response, array $args) {
+$app->post('/', function (Request $request, Response $response, array $args) {
     //On récupère les données du formulaire
     $form = $request->getParsedBody();
     //On crée une Person à partir de ces données
@@ -34,8 +30,12 @@ $app->post('/addperson', function (Request $request, Response $response, array $
     $dao = new DaoPerson();
     //On utilise la méthode add du DAO en lui donnant la Person qu'on vient de créer
     $dao->add($newPerson);
+    //On récupère les persons
+    $persons = $dao->getAll();
+
     //On affiche la même vue que la route en get
-    return $this->view->render($response, 'addperson.twig', [
+    return $this->view->render($response, 'index.twig', [
+        'persons' => $persons,
         'newId' => $newPerson->getId()
     ]);
 })->setName('addperson');
