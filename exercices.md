@@ -8,7 +8,7 @@ Création d'un formulaire d'ajout de personne :
 Création du formulaire de mise à jour d'une personne :
 1. créer la vue du formulaire d'update (reprendre celui du create)
 2. modifier la vue de l'index pour passer l'id de la personne à la vue update via l'URL (`path-for('maroute', ["id" -> $id])`)
-3. dans la route d'update, récupérer dans la BDD la personne d'après son id puis binder les données à la vue pour les afficher dans le form
+3. dans la route d'update, récupérer dans la BDD la personne d'après son id puis passer les données à la vue pour les afficher dans le form
 4. faire en sorte que l'id de la personne soit bien passé dans l'URL d'action du form
 5. dans la route POST de l'update, mettre en forme les données du POST puis envoyer une requête d'update dans la BDD à l'aide du dao
 6. ceci fait, rediriger l'utilisateur sur la page index
