@@ -40,4 +40,10 @@ $app->post('/addperson', function (Request $request, Response $response, array $
     ]);
 })->setName('addperson');
 
+$app->get('/updateperson/{id}', function (Request $request, Response $response, array $args) {
 
+})->setName('updateperson');
+
+$app->post('/updateperson/{id}', function (Request $request, Response $response, array $args) {
+
+})->setName('updateperson');
