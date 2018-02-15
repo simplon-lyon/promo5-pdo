@@ -41,9 +41,24 @@ $app->post('/addperson', function (Request $request, Response $response, array $
 })->setName('addperson');
 
 $app->get('/updateperson/{id}', function (Request $request, Response $response, array $args) {
-
+    $dao = new DaoPerson;
+    $person = $dao->getById($args['id']);
+    return $this->view->render($response, 'updateperson.twig', [
+        'person' => $person
+    ]);
+    
 })->setName('updateperson');
 
 $app->post('/updateperson/{id}', function (Request $request, Response $response, array $args) {
+    $dao = new DaoPerson;
+    $postData = $request->getParsedBody();
+    $person = $dao->getById($args['id']);
 
+    $person->setName($postData['name']);
+    $person->setBirthdate(new \DateTime($postData['birthdate']));
+    $person->setGender($postData['gender']);
+    $dao->update($person);
+
+    $redirectUrl = $this->router->pathFor('index');
+    return $response->withRedirect($redirectUrl);
 })->setName('updateperson');

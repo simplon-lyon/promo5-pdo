@@ -20,6 +20,7 @@
                 <th> Name </th>
                 <th> Birth Date</th>
                 <th> Gender </th>
+                <th>Update</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +29,12 @@
                 <th scope="row">{{person.id}}</th>
                 <td>{{person.name}}</td>
                 <td>{{person.birthdate | date("d/m/Y")}}</td>
-                <td>{{person.gender}}</td>
+                <td>{{person.gender}}
+                    
+                </td>
+                <td>
+                    <a href="{{ path_for('updateperson', {'id': person.id}) }}">Update</a>
+                </td>
             </tr>
 
             {% endfor %}
