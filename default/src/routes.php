@@ -70,3 +70,14 @@ $app->post('/updateperson/{id}', function (Request $request, Response $response,
     //On redirige l'utilisateur sur la page d'accueil
     return $response->withRedirect($redirectUrl);
 })->setName('updateperson');
+
+$app->get('/deleteperson/{id}', function (Request $request, Response $response, array $args) {
+    //On instancie le DAO
+    $dao = new DaoPerson;
+    //On delete la personne
+    $dao->delete($args['id']);
+    //On récupère l'URL da la route index (page d'accueil)
+    $redirectUrl = $this->router->pathFor('index');
+    //On redirige l'utilisateur sur la page d'accueil
+    return $response->withRedirect($redirectUrl);
+})->setName('deleteperson');

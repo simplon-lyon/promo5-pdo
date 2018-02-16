@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>My PDO Project</title>
     <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 </head>
 
 <body>
@@ -21,6 +21,8 @@
                 <th> Birth Date</th>
                 <th> Gender </th>
                 <th>Update</th>
+                <th>Delete</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -29,11 +31,16 @@
                 <th scope="row">{{person.id}}</th>
                 <td>{{person.name}}</td>
                 <td>{{person.birthdate | date("d/m/Y")}}</td>
-                <td>{{person.gender}}
-                    
+                <td>{{person.gender}}</td>
+                <td>
+                    <a href="{{ path_for('updateperson', {'id': person.id}) }}">
+                        <i class="far fa-edit"></i>
+                    </a>
                 </td>
                 <td>
-                    <a href="{{ path_for('updateperson', {'id': person.id}) }}">Update</a>
+                    <a href="{{ path_for('deleteperson', {'id': person.id}) }}">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
                 </td>
             </tr>
 
